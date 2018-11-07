@@ -1,6 +1,6 @@
 <?php
 
-
+//第一种方法
 function chou($num){
   for($i = 2;;$i*=1){
     if(is_int($num/2)){
@@ -32,10 +32,26 @@ function chou($num){
 }
 
 echo chou(16);
+echo "<br><br><br><br>";
 
-
-
-
+//第二种方法
+function ch($num){
+	$arr=[2,3,5];
+	foreach ($arr as $key => $val) {
+		$o=0;
+		for($i=$val;$o==0;$i*=1){
+			if(is_int($num/$i)){
+				$num=$num/$i;
+			}else if($num==1){
+				return '是丑数';
+			}else{
+				$o=1;
+			}
+		}
+	}
+	return '不是丑数';
+}
+echo ch(12);
 
 
 
