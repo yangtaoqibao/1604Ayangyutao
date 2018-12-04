@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<body>
+	<CENTER>
+		<h1><b>个人信息-编辑</b></h1>
+		<form action="untied13.php" enctype="multipart/form-data" method="post" onsubmit="return js_sub()">
+			<table border="1px">
+				<tr>
+					<td>姓名:</td>
+					<td>
+						<input type="text" id="name" name="name" onblur="js_name()"></input>
+						<span id="s_name"></span>
+					</td>
+				</tr>
+				<tr>
+					<td>性别:</td>
+					<td>
+						<input type="radio" name="sex" value="男" onclick="js_sex()">男</input>
+						<input type="radio" name="sex" value="女" onclick="js_sex()">女</input>
+						<span id="s_sex"></span>
+					</td>
+				</tr>
+				<tr>
+					<td>出生年月:</td>
+					<td>
+						<input type="text" id="both" name="both" onblur="js_both()"></input>
+						<span id="s_both"></span>
+					</td>
+				</tr>
+				<tr>
+					<td>身份证号:</td>
+					<td>
+						<input type="text" id="id_card" name="id_card" onblur="js_id_card()"></input>
+						<span id="s_id_card"></span>
+					</td>
+				</tr>
+				<tr>
+					<td>头像:</td>
+					<td>
+						<input type="file" id="file" name="img" onchange="js_file()"></input>
+						<input type="hidden" name="max_file_size" value="1000"></input>
+						<span id="s_file"></span>
+					</td>
+				</tr>
+				<tr>
+					<td>手机:</td>
+					<td>
+						<input type="text" id="tel" name="tel" onblur="js_tel()"></input>
+						<span id="s_tel"></span>
+					</td>
+				</tr>
+				<tr>
+					<td>邮箱:</td>
+					<td>
+						<input type="email" id="email" name="email" onblur="js_email()"></input>
+						<span id="s_email"></span>
+					</td>
+				</tr>
+				<tr>
+					<td>学历:</td>
+					<td>
+						<select id="xueli" name="xueli" onchange="js_xueli()">
+							<option value="">请选择</option>
+							<option value="博士">博士</option>
+							<option value="硕士">硕士</option>
+							<option value="本科">本科</option>
+							<option value="大专">大专</option>
+						</select>
+						<span id="s_xueli"></span>
+					</td>
+				</tr>
+				<tr>
+					<td>毕业院校:</td>
+					<td>
+						<input type="text" id="school" name="school" onblur="js_school()"></input>
+						<span id="s_school"></span>
+					</td>
+				</tr>
+				<tr>
+					<td>毕业时间:</td>
+					<td>
+						<input type="text" id="school_time" name="school_time" onblur="js_school_time()"></input>
+						<span id="s_school_time"></span>
+					</td>
+				</tr>
+				<tr>
+					<td>精通语言:</td>
+					<td>
+						<input type="checkbox" name="object[]" value="PHP" onclick="js_object()">PHP</input>
+						<input type="checkbox" name="object[]" value="RUBY" onclick="js_object()">RUBY</input>
+						<input type="checkbox" name="object[]" value="C" onclick="js_object()">C</input>
+						<input type="checkbox" name="object[]" value="PYTHON" onclick="js_object()">PYTHON</input>
+						<input type="checkbox" name="object[]" value="JAVA" onclick="js_object()">JAVA</input>
+						<span id="s_object"></span>
+					</td>
+				</tr>
+				<tr>
+					<td><input type="submit" value="提交"></input></td>
+				</tr>
+			</table>
+		</form>
+	</CENTER>
+</body>
+	<script>
+		function js_name() 
+		{
+			var name =document.getElementById('name').value
+			var reg = /^[\u4e00-\u9fa5]{2,4}$/
+			if(name=="")
+			{
+				document.getElementById('s_name').innerHTML = "<font color='red'>不能为空必须是2到4个中文汉字</font>"
+				return false
+			}
+			
+				if(reg.test(name))
+				{
+					document.getElementById('s_name').innerHTML = "<font color='green'>√</font>"
+					return true
+				}
+				else
+				{
+					document.getElementById('s_name').innerHTML = "<font color='red'>不能为空必须是2到4个中文汉字</font>"
+					return false
+				}
+			
+		}
+		function js_sex() 
+		{
+			var sex = document.getElementsByName('sex')
+			if(sex[0].checked || sex[1].checked)
+			{
+				document.getElementById('s_sex').innerHTML = "<font color='green'>√</font>"
+					return true
+			}
+			else
+			{
+				document.getElementById('s_sex').innerHTML = "<font color='red'>必选一项,选中的值必须是	范围之内(男,女)</font>"
+					return false
+			}
+		}
+		function js_both() 
+		{
+			var both =document.getElementById('both').value
+			var reg = /^\d{4}-\d{2}-\d{2}$/
+			if(both=="")
+			{
+				document.getElementById('s_both').innerHTML = "<font color='red'>不能为空,格式为YYYY-MM-DD</font>"
+				return false
+			}
+			else
+			{
+				if(reg.test(both))
+				{
+					document.getElementById('s_both').innerHTML = "<font color='green'>√</font>"
+					return true
+				}
+				else
+				{
+					document.getElementById('s_both').innerHTML = "<font color='red'>不能为空,格式为YYYY-MM-DD</font>"
+					return false
+				}
+			}	
+		}
+		function js_id_card() 
+		{
+			var id_card =document.getElementById('id_card').value
+			var reg = /^\d{15}$/
+			var regs = /^\d{17}(\d|X)$/
+			if(id_card=="")
+			{
+				document.getElementById('s_id_card').innerHTML = "<font color='red'>不能为空,15位或18位纯数字组成,18位最后一位可以为X</font>"
+				return false
+			}
+			else
+			{
+				if(reg.test(id_card) || regs.test(id_card))
+				{
+					document.getElementById('s_id_card').innerHTML = "<font color='green'>√</font>"
+					return true
+				}
+				else
+				{
+					document.getElementById('s_id_card').innerHTML = "<font color='red'>不能为空,15位或18位纯数字组成,18位最后一位可以为X</font>"
+					return false
+				}
+			}	
+		}
+		function js_file() 
+		{
+			var file = document.getElementById('file').value
+			if(file=="")
+			{
+				document.getElementById('s_file').innerHTML = "<font color='red'>不能为空</font>"
+					return false
+			}
+			else
+			{
+				document.getElementById('s_file').innerHTML = "<font color='green'>√</font>"
+					return true
+			}
+		}
+		function js_tel() 
+		{
+			var tel =document.getElementById('tel').value
+			var reg = /^1[3875]\d{9}$/
+			if(tel=="")
+			{
+				document.getElementById('s_tel').innerHTML = "<font color='red'>不能为空,必须是11位纯数字组成,以13 18 17 15开头</font>"
+				return false
+			}
+			else
+			{
+				if(reg.test(tel))
+				{
+					document.getElementById('s_tel').innerHTML = "<font color='green'>√</font>"
+					return true
+				}
+				else
+				{
+					document.getElementById('s_tel').innerHTML = "<font color='red'>不能为空,必须是11位纯数字组成,以13 18 17 15开头</font>"
+					return false
+				}
+			}	
+		}
+		function js_email() 
+		{
+			var email =document.getElementById('email').value
+			var reg = /^\w+@\w+(\.)(com|cn|net)$/
+			if(reg.test(email))
+			{
+				document.getElementById('s_email').innerHTML = "<font color='green'>√</font>"
+				return true
+			}
+			else
+			{
+				document.getElementById('s_email').innerHTML = "<font color='red'>不能为空,必须包含@符号,以.com或.cn或.net结尾</font>"
+				return false
+			}	
+		}
+		function js_xueli() 
+		{
+			var xueli =document.getElementById('xueli').value
+			if(xueli == "")
+			{
+				document.getElementById('s_xueli').innerHTML = "<font color='red'>必选一项,选中值必须是范围之内(博士，硕士，本科，大专)</font>"
+				return false
+			}
+			else
+			{
+				document.getElementById('s_xueli').innerHTML = "<font color='green'>√</font>"
+				return true
+			}
+		}
+		function js_school() 
+		{
+			var school =document.getElementById('school').value
+			var reg = /^[\u4e00-\u9fa5]{1,20}$/
+			if(reg.test(school))
+			{
+				document.getElementById('s_school').innerHTML = "<font color='green'>√</font>"
+				return true
+			}
+			else
+			{
+				document.getElementById('s_school').innerHTML = "<font color='red'>不能为空,必须是1到20个中文汉字</font>"
+				return false
+			}	
+		}
+		function js_school_time() 
+		{
+			var school_time =document.getElementById('school_time').value
+			var reg = /^\d{4}-\d{2}-\d{2}$/
+			if(reg.test(school_time))
+			{
+				document.getElementById('s_school_time').innerHTML = "<font color='green'>√</font>"
+				return true
+			}
+			else
+			{
+				document.getElementById('s_school_time').innerHTML = "<font color='red'>不能为空,格式为YYYY-MM-DD</font>"
+				return false
+			}
+				
+		}
+		function js_object() 
+		{
+			var object = document.getElementsByName('object[]')
+			var flag = 0
+			for(var i=0; i<object.length;i++)
+			{
+				if(object[i].checked)
+				{
+					flag++
+				}
+			}
+			if(flag>=2)
+			{
+				document.getElementById('s_object').innerHTML = "<font color='green'>√</font>"
+				return true
+			}
+			else
+			{
+				document.getElementById('s_object').innerHTML = "<font color='red'>不能为空,至少选择两项</font>"
+				return false
+			}
+		}
+		function js_sub() 
+		{
+			if(js_name() & js_sex() & js_both() & js_id_card() &js_file()  & js_tel() & js_email() & js_xueli() & js_school() & js_school_time() & js_object())
+			{
+				return true
+			}
+			else
+			{
+				return false
+			}
+		}
+	</script>
+</html>
